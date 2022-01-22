@@ -8,7 +8,7 @@
 	let bottomRow = 'zxcvbnm';
 </script>
 
-<div>
+<div class="flex flex-col gap-1">
 	<Keyrow>
 		{#each firstRow as char}
 			<Key>
@@ -24,13 +24,13 @@
 		{/each}
 	</Keyrow>
 	<Keyrow>
-		<Key>enter</Key>
+		<Key specialKey>enter</Key>
 		{#each bottomRow as char}
 			<Key>
 				{char}
 			</Key>
 		{/each}
-		<Key>
+		<Key specialKey>
 			<Icon src={Backspace} size="1.5rem" />
 		</Key>
 	</Keyrow>

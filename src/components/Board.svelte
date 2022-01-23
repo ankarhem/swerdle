@@ -45,17 +45,12 @@
 			grid[currentRow][index].state = newState;
 		});
 
-		if (currentGuess === dailyWord) {
+		if (currentRow === 5 || currentGuess === dailyWord) {
 			isDone = true;
-			alert('You win!');
 		}
 
-		if (currentRow < 5) {
-			currentRow++;
-			return;
-		}
-
-		alert('You lose!');
+		if (currentRow === 5) return;
+		currentRow++;
 	};
 
 	const handleKeyDown = (event) => {

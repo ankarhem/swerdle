@@ -15,13 +15,13 @@
 	const getStateStyles = (state) => {
 		switch (state) {
 			case CharState.Correct:
-				return 'bg-green-400 text-primary-100';
+				return 'bg-green-400 text-primary-500 border-green-500 bg-opacity-50 border-opacity-50';
 			case CharState.WrongPlace:
-				return 'bg-yellow-400 text-primary-100';
+				return 'bg-yellow-400 text-primary-500 border-yellow-500 bg-opacity-50 border-opacity-50';
 			case CharState.Incorrect:
-				return 'bg-neutral-400 text-primary-100';
+				return 'bg-neutral-400 text-primary-500 border-neutral-500 bg-opacity-50 border-opacity-50';
 			case CharState.Unknown:
-				return 'bg-neutral-50 text-primary-500';
+				return 'bg-neutral-50 text-primary-500 border-primary-300';
 			default:
 				return '';
 		}
@@ -31,7 +31,7 @@
 </script>
 
 <div
-	class={`text-5xl w-16 h-16 rounded transition-colors border-2 border-primary-300 uppercase font-bold flex items-center justify-center ${stateStyles}`}
+	class={`text-5xl w-16 h-16 rounded transition-colors border-2  uppercase font-bold flex items-center justify-center ${stateStyles}`}
 >
 	{character}
 </div>

@@ -7,8 +7,8 @@
 </script>
 
 <button
-	class={`flex items-center justify-center py-4 rounded uppercase text-white font-bold  ${
-		specialKey === false ? 'w-10 bg-slate-400' : 'w-20 bg-slate-500'
+	class={`border flex items-center justify-center py-4 rounded uppercase text-primary-500 font-bold border-primary-500 ${
+		specialKey === false ? 'bg-neutral-100' : 'col-span-2 bg-neutral-400 text-primary-600'
 	}`}
 	on:click={handleClick}
 >

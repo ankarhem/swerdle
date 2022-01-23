@@ -1,8 +1,16 @@
 <script lang="ts">
+	export let key: string;
 	export let specialKey: boolean = false;
 
 	const handleClick: svelte.JSX.MouseEventHandler<HTMLButtonElement> = (event) => {
-		console.log(event.currentTarget.innerText);
+		console.log(key);
+		if (!key || typeof window === 'undefined') return;
+
+		window.dispatchEvent(
+			new KeyboardEvent('keydown', {
+				key: key
+			})
+		);
 	};
 </script>
 
@@ -12,5 +20,7 @@
 	}`}
 	on:click={handleClick}
 >
-	<slot />
+	<slot>
+		{key}
+	</slot>
 </button>

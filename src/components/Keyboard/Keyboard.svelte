@@ -10,22 +10,16 @@
 <div class="max-w-md w-full p-2">
 	<div class="grid grid-cols-11 gap-1">
 		{#each firstRow as char}
-			<Key>
-				{char}
-			</Key>
+			<Key key={char} />
 		{/each}
 		{#each middleRow as char}
-			<Key>
-				{char}
-			</Key>
+			<Key key={char} />
 		{/each}
-		<Key specialKey>enter</Key>
+		<Key specialKey key="Enter">enter</Key>
 		{#each bottomRow as char}
-			<Key>
-				{char}
-			</Key>
+			<Key key={char} />
 		{/each}
-		<Key specialKey>
+		<Key specialKey key="Backspace">
 			<Icon src={Backspace} size="1.5rem" />
 		</Key>
 	</div>

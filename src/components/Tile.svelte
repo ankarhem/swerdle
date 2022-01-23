@@ -21,7 +21,7 @@
 			case CharState.Incorrect:
 				return 'bg-neutral-400 text-primary-100';
 			case CharState.Unknown:
-				return 'bg-neutral-50';
+				return 'bg-neutral-50 text-primary-500';
 			default:
 				return '';
 		}

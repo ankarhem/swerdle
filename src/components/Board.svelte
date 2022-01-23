@@ -9,77 +9,67 @@
 	import Tile, { CharState } from './Tile.svelte';
 
 	const allowedCharacters = 'abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ';
-	const grid: TileType[][] = Array.from({ length: 6 }, (v, i) =>
-		Array.from({ length: 5 }, (v, i) => ({ value: '', state: CharState.Unknown }))
+	const grid: TileType[][] = Array.from({ length: 6 }, () =>
+		Array.from({ length: 5 }, () => ({ value: '', state: CharState.Unknown }))
 	);
 
-	const currentWord = 'earth';
+	const dailyWord = 'earth';
 	let currentRow = 0;
+	let isDone = false;
 
 	$: currentGuess = grid[currentRow].map((tile) => tile.value).join('');
-
-	const getState = (char: string, index: number): CharState => {
-		if (char === currentWord[index]) {
-			return CharState.Correct;
-		}
-		if (currentWord.includes(char)) {
-			return CharState.WrongPlace;
-		}
-
-		return CharState.Incorrect;
-	};
 
 	const handleDeleteKey = () => {
 		if (currentGuess.length === 0) return;
 
-		const newTile: TileType = {
-			value: '',
-			state: CharState.Incorrect
-		};
-
-		grid[currentRow][currentGuess.length - 1] = newTile;
+		grid[currentRow][currentGuess.length - 1].value = '';
 	};
 
 	const handleAddKey = (key: string) => {
 		if (!allowedCharacters.includes(key)) return;
 		if (currentGuess.length === 5) return;
 
-		const newTile: TileType = {
-			value: key,
-			state: getState(key, currentGuess.length)
-		};
-
-		console.log(getState(key, currentGuess.length));
-
-		grid[currentRow][currentGuess.length] = newTile;
+		grid[currentRow][currentGuess.length].value = key;
 	};
 
-	const handleSubmit = (guess: string) => {
-		if (guess.length !== 5) return;
-		if (currentWord !== guess && currentRow < 5) {
+	const handleSubmit = () => {
+		if (currentGuess.length !== 5) return;
+
+		currentGuess.split('').forEach((char, index) => {
+			const newState =
+				char === dailyWord[index]
+					? CharState.Correct
+					: dailyWord.includes(char)
+					? CharState.WrongPlace
+					: CharState.Incorrect;
+			grid[currentRow][index].state = newState;
+		});
+
+		if (currentGuess === dailyWord) {
+			isDone = true;
+			alert('You win!');
+		}
+
+		if (currentRow < 5) {
 			currentRow++;
 			return;
 		}
 
-		if (guess === currentWord) {
-			alert('You win!');
-		} else {
-			alert('You lose!');
-		}
+		alert('You lose!');
 	};
 
 	const handleKeyDown = (event) => {
-		const key = event.key;
+		if (isDone) return;
 
-		switch (key) {
+		switch (event.key) {
 			case 'Backspace':
 				handleDeleteKey();
 				break;
 			case 'Enter':
-				handleSubmit(currentGuess);
+				handleSubmit();
 				break;
 			default:
-				handleAddKey(key);
+				handleAddKey(event.key);
 		}
 	};
 </script>

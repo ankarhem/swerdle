@@ -8,16 +8,16 @@
 	<a href="/hjalp" class="text-primary-500">
 		<Icon src={QuestionMarkCircle} size="1.5rem" />
 	</a>
-	<div class="flex items-center flex-col uppercase text-gray-500 py-1">
+	<div class="flex items-center flex-col uppercase text-primary-500 py-1">
 		<h1 class="text-5xl mx-auto">
 			<a href="/" class="flex font-bold leading-10">
 				<span class="text-blue-400">S</span>
 				<span class="text-yellow-400">W</span>
 				<span class="text-blue-400">E</span>
-				<span class="text-primary-500">rdle</span>
+				<span>rdle</span>
 			</a>
 		</h1>
-		<div class="text-xs block transform-gpu">Wordle på svenska</div>
+		<div class="text-xs block">Wordle på svenska</div>
 	</div>
 	<a href="/statistik" class="text-primary-500">
 		<Icon src={ChartBar} size="1.5rem" />

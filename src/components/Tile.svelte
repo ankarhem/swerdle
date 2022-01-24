@@ -43,7 +43,7 @@
 	}
 </script>
 
-{#key character.toLowerCase()}
+{#key `${character.toLowerCase()}-${state}`}
 	<div
 		in:expand
 		class={`text-5xl w-16 h-16 rounded transition-colors border-2 uppercase font-bold flex items-center justify-center ${stateStyles}`}

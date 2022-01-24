@@ -1,12 +1,6 @@
-<script context="module" lang="ts">
-	type TileType = {
-		value: string;
-		state: TileState;
-	};
-</script>
-
 <script lang="ts">
-	import Tile, { TileState } from './Tile.svelte';
+	import Tile from './Tile.svelte';
+	import { TileState, TileType } from './types';
 
 	const allowedCharacters = 'abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ';
 	const grid: TileType[][] = Array.from({ length: 6 }, () =>

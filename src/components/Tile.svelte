@@ -1,14 +1,6 @@
-<script context="module" lang="ts">
-	export enum TileState {
-		Unknown = 'UNKNOWN',
-		Correct = 'CORRECT',
-		WrongPlace = 'WRONG_PLACE',
-		Incorrect = 'INCORRECT'
-	}
-</script>
-
 <script lang="ts">
 	import { quadOut } from 'svelte/easing';
+	import { TileState } from './types';
 	export let character: string;
 	export let state: TileState;
 	export let index: number;

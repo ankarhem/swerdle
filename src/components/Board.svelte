@@ -1,16 +1,16 @@
 <script context="module" lang="ts">
 	type TileType = {
 		value: string;
-		state: CharState;
+		state: TileState;
 	};
 </script>
 
 <script lang="ts">
-	import Tile, { CharState } from './Tile.svelte';
+	import Tile, { TileState } from './Tile.svelte';
 
 	const allowedCharacters = 'abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ';
 	const grid: TileType[][] = Array.from({ length: 6 }, () =>
-		Array.from({ length: 5 }, () => ({ value: '', state: CharState.Unknown }))
+		Array.from({ length: 5 }, () => ({ value: '', state: TileState.Unknown }))
 	);
 
 	const dailyWord = 'earth';
@@ -38,10 +38,10 @@
 		currentGuess.split('').forEach((char, index) => {
 			const newState =
 				char === dailyWord[index]
-					? CharState.Correct
+					? TileState.Correct
 					: dailyWord.includes(char)
-					? CharState.WrongPlace
-					: CharState.Incorrect;
+					? TileState.WrongPlace
+					: TileState.Incorrect;
 			grid[currentRow][index].state = newState;
 		});
 
@@ -74,8 +74,10 @@
 <div class="flex-1 my-2 items-center flex">
 	<div class="grid grid-cols-5 grid-rows-6 gap-1">
 		{#each grid as row}
-			{#each row as tile}
-				<Tile character={tile.value} state={tile.state} />
+			{#each row as tile, i}
+				<div class="grid">
+					<Tile character={tile.value} state={tile.state} index={i} />
+				</div>
 			{/each}
 		{/each}
 	</div>

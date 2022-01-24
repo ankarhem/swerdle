@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	export enum CharState {
+	export enum TileState {
 		Unknown = 'UNKNOWN',
 		Correct = 'CORRECT',
 		WrongPlace = 'WRONG_PLACE',
@@ -10,18 +10,19 @@
 <script lang="ts">
 	import { quadOut } from 'svelte/easing';
 	export let character: string;
-	export let state: CharState;
+	export let state: TileState;
+	export let index: number;
 
 	const getStateStyles = (state) => {
 		switch (state) {
-			case CharState.Correct:
+			case TileState.Correct:
 				return 'bg-green-300 text-green-600 border-green-600';
-			case CharState.WrongPlace:
+			case TileState.WrongPlace:
 				return 'bg-yellow-300 text-yellow-600 border-yellow-600';
-			case CharState.Incorrect:
+			case TileState.Incorrect:
 				return 'bg-neutral-300 text-neutral-600 border-neutral-600';
-			case CharState.Unknown:
-				return 'bg-neutral-50 text-neutral-500 border-neutral-300';
+			case TileState.Unknown:
+				return 'bg-primary-50 text-primary-500 border-primary-300';
 			default:
 				return '';
 		}
@@ -41,13 +42,35 @@
 			css: (t, u) => `transform: ${existingTransform} scale(${1 + 0.3 * (t > 0.5 ? 1 - t : 1 - u)})`
 		};
 	}
+
+	function rotate(node, params) {
+		const existingTransform = getComputedStyle(node).transform.replace('none', '');
+
+		if (state === TileState.Unknown) return;
+
+		return {
+			delay: 500 * params.index + (params.isIn ? 200 : 0),
+			duration: params.duration,
+			easing: quadOut,
+			css: (t, u) =>
+				`transform: ${existingTransform} rotateX(${u * 90}deg); opacity: ${u === 1 ? 0 : 1};`
+		};
+	}
 </script>
 
-{#key `${character.toLowerCase()}-${state}`}
+{#key state}
 	<div
-		in:expand
-		class={`text-5xl w-16 h-16 rounded transition-colors border-2 uppercase font-bold flex items-center justify-center ${stateStyles}`}
+		class="col-start-1 row-start-1"
+		in:rotate={{ index: index, duration: 200, isIn: true }}
+		out:rotate={{ index: index, duration: 200 }}
 	>
-		{character}
+		{#key character.toLowerCase()}
+			<div
+				in:expand|local
+				class={`text-5xl w-16 h-16 rounded border-2 transition-colors uppercase font-bold flex items-center justify-center ${stateStyles}`}
+			>
+				{character}
+			</div>
+		{/key}
 	</div>
 {/key}

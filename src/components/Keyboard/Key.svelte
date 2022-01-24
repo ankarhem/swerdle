@@ -15,8 +15,10 @@
 </script>
 
 <button
-	class={`border flex items-center justify-center py-4 rounded uppercase text-primary-500 font-bold border-primary-500 ${
-		specialKey === false ? 'bg-neutral-100' : 'col-span-2 bg-neutral-400 text-primary-600'
+	class={`border flex items-center justify-center py-4 rounded uppercase text-neutral-600 font-bold border-neutral-600 ${
+		specialKey === false
+			? 'bg-neutral-100'
+			: 'col-span-2 bg-neutral-300 text-neutral-700 border-neutral-700'
 	}`}
 	on:click={handleClick}
 >

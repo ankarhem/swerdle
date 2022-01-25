@@ -7,7 +7,7 @@
 		Array.from({ length: 5 }, () => ({ value: '', state: TileState.Unknown }))
 	);
 
-	const dailyWord = 'earth';
+	export let dailyWord: string;
 	let currentRow = 0;
 	let isDone = false;
 

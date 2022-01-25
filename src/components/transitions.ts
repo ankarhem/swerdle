@@ -1,19 +1,31 @@
 import { linear, quadOut } from 'svelte/easing';
+import type { TransitionConfig } from 'svelte/types/runtime/transition';
 
-export function rotate(node, params) {
+export const ROTATE_DURATION = 300;
+
+interface RotateParams {
+	delay?: number;
+	skip?: boolean;
+}
+
+export function rotate(node: Element, params: RotateParams): TransitionConfig {
 	const existingTransform = getComputedStyle(node).transform.replace('none', '');
 
 	if (params.skip) return;
 
 	return {
 		delay: params.delay || 0,
-		duration: params.duration,
+		duration: ROTATE_DURATION,
 		easing: linear,
 		css: (t, u) => `transform: ${existingTransform} rotateX(${u * 90}deg);`
 	};
 }
 
-export function expand(node, params) {
+interface ExpandParams {
+	skip?: boolean;
+}
+
+export function expand(node: Element, params: ExpandParams): TransitionConfig {
 	const existingTransform = getComputedStyle(node).transform.replace('none', '');
 
 	if (params.skip) return;

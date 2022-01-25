@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { TileState } from '$lib/types';
 	import { gameState } from './store';
 	import Tile from './Tile.svelte';
-	import { TileState } from './types';
 
 	const allowedCharacters = 'abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ';
 

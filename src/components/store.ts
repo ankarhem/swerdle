@@ -1,7 +1,7 @@
 import { browser } from '$app/env';
+import type { TileType } from '$lib/types';
+import { TileState } from '$lib/types';
 import { writable } from 'svelte/store';
-import type { TileType } from './types';
-import { TileState } from './types';
 
 const STORAGE_KEY = 'gameState';
 
@@ -13,7 +13,12 @@ export const createEmptyGrid = (): TileType[][] => {
 
 export const emptyGrid: TileType[][] = createEmptyGrid();
 
-const initialState = {
+interface GameState {
+	grid: TileType[][];
+	currentRow: number;
+}
+
+const initialState: GameState = {
 	grid: emptyGrid,
 	currentRow: 0
 };
@@ -21,7 +26,7 @@ const initialState = {
 const storedState = browser ? localStorage.getItem(STORAGE_KEY) : null;
 const parsedState = storedState ? JSON.parse(storedState) : initialState;
 
-export const gameState = writable(parsedState);
+export const gameState = writable<GameState>(parsedState);
 
 if (browser) {
 	gameState.subscribe((value) => {

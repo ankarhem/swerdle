@@ -40,11 +40,14 @@
 <div class={`grid ${specialKey === false ? '' : 'col-span-2'}`}>
 	{#key state}
 		<button
-			transition:fade|local={{ delay: state === TileState.Unknown ? 0 : animationDelay }}
+			transition:fade|local={{
+				delay: state === TileState.Unknown ? 0 : animationDelay,
+				duration: 150
+			}}
 			class={`${stateStyle} ${
 				// to override the lesser border in stateStyles used on the tiles
 				state === TileState.Unknown ? 'border-primary-500' : ''
-			} col-start-1 row-start-1 transition-colors border text-lg flex items-center justify-center py-4 rounded uppercase font-bold`}
+			} col-start-1 row-start-1 border text-lg flex items-center justify-center py-4 rounded uppercase font-bold`}
 			on:click={handleClick}
 		>
 			<slot>

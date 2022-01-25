@@ -17,18 +17,13 @@ export function rotate(node: Element, params: RotateParams): TransitionConfig {
 		delay: params.delay || 0,
 		duration: ROTATE_DURATION,
 		easing: linear,
-		css: (t, u) => `transform: ${existingTransform} rotateX(${u * 90}deg);`
+		css: (_t, u) => `transform: ${existingTransform} rotateX(${u * 90}deg);`
 	};
 }
 
-interface ExpandParams {
-	skip?: boolean;
-}
-
-export function expand(node: Element, params: ExpandParams): TransitionConfig {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function expand(node: Element, _params: Record<never, never>): TransitionConfig {
 	const existingTransform = getComputedStyle(node).transform.replace('none', '');
-
-	if (params.skip) return;
 
 	return {
 		delay: 0,

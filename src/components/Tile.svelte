@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getStateStyles } from '$lib/getStateStyles';
-	import type { TileState } from '$lib/types';
+	import { TileState } from '$lib/types';
 	import { expand, rotate, ROTATE_DURATION } from './transitions';
 	export let character: string;
 	export let state: TileState;
@@ -9,13 +9,10 @@
 	$: stateStyles = getStateStyles(state);
 </script>
 
-{#each [character] as c (c)}
-	<div class="grid" in:expand|local={{ skip: character.length === 0 }}>
-		{#each [state] as s (s)}
+{#if character.length > 0}
+	<div class="grid" in:expand|local>
+		{#if state === TileState.Unknown}
 			<div
-				in:rotate|local={{
-					delay: ROTATE_DURATION * (index + 1)
-				}}
 				out:rotate|local={{
 					delay: ROTATE_DURATION * index
 				}}
@@ -23,6 +20,23 @@
 			>
 				{character}
 			</div>
-		{/each}
+		{:else}
+			<div
+				in:rotate|local={{
+					delay: ROTATE_DURATION * (index + 1)
+				}}
+				class={`col-start-1 row-start-1 text-5xl w-16 h-16 rounded border-2 transition-colors uppercase font-bold flex items-center justify-center ${stateStyles}`}
+			>
+				{character}
+			</div>
+		{/if}
 	</div>
-{/each}
+{:else}
+	<div class="grid">
+		<div
+			class={`col-start-1 row-start-1 text-5xl w-16 h-16 rounded border-2 transition-colors uppercase font-bold flex items-center justify-center ${stateStyles}`}
+		>
+			{character}
+		</div>
+	</div>
+{/if}

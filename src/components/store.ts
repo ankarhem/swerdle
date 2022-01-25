@@ -5,9 +5,13 @@ import { TileState } from './types';
 
 const STORAGE_KEY = 'gameState';
 
-const emptyGrid: TileType[][] = Array.from({ length: 6 }, () =>
-	Array.from({ length: 5 }, () => ({ value: '', state: TileState.Unknown }))
-);
+export const createEmptyGrid = (): TileType[][] => {
+	return Array.from({ length: 6 }, () =>
+		Array.from({ length: 5 }, () => ({ value: '', state: TileState.Unknown }))
+	);
+};
+
+export const emptyGrid: TileType[][] = createEmptyGrid();
 
 const initialState = {
 	grid: emptyGrid,

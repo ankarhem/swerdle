@@ -1,5 +1,14 @@
 <script lang="ts">
 	import { ChartBar, Icon, QuestionMarkCircle } from 'svelte-hero-icons';
+	import { createEmptyGrid, gameState } from './store';
+
+	const handleClick = () => {
+		const newState = {
+			grid: createEmptyGrid(),
+			currentRow: 0
+		};
+		$gameState = newState;
+	};
 </script>
 
 <div
@@ -18,6 +27,7 @@
 			</a>
 		</h1>
 		<div class="text-xs block">Wordle på svenska</div>
+		<button on:click={handleClick}> Reset </button>
 	</div>
 	<a href="/statistik" class="text-primary-500">
 		<Icon src={ChartBar} size="1.5rem" />

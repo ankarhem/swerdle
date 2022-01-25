@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { quadOut } from 'svelte/easing';
+	import { expand, rotate } from './transitions';
 	import { TileState } from './types';
 	export let character: string;
 	export let state: TileState;
@@ -22,47 +22,26 @@
 
 	$: stateStyles = getStateStyles(state);
 
-	function expand(node, params) {
-		const existingTransform = getComputedStyle(node).transform.replace('none', '');
-
-		if (character.length === 0) return;
-
-		return {
-			delay: 0,
-			duration: 100,
-			easing: quadOut,
-			css: (t, u) => `transform: ${existingTransform} scale(${1 + 0.3 * (t > 0.5 ? 1 - t : 1 - u)})`
-		};
-	}
-
-	function rotate(node, params) {
-		const existingTransform = getComputedStyle(node).transform.replace('none', '');
-
-		if (state === TileState.Unknown) return;
-
-		return {
-			delay: 500 * params.index + (params.isIn ? 200 : 0),
-			duration: params.duration,
-			easing: quadOut,
-			css: (t, u) =>
-				`transform: ${existingTransform} rotateX(${u * 90}deg); opacity: ${u === 1 ? 0 : 1};`
-		};
-	}
+	const duration = 200;
 </script>
 
-{#key `${state}-${index}`}
-	<div
-		class="col-start-1 row-start-1"
-		in:rotate={{ index: index, duration: 200, isIn: true }}
-		out:rotate|local={{ index: index, duration: 200 }}
-	>
-		{#key character.toLowerCase()}
+{#each [character] as c (c)}
+	<div class="grid" in:expand|local={{ skip: character.length === 0 }}>
+		{#each [state] as s (s)}
 			<div
-				in:expand|local
-				class={`text-5xl w-16 h-16 rounded border-2 transition-colors uppercase font-bold flex items-center justify-center ${stateStyles}`}
+				in:rotate|local={{
+					delay: 500 * index + duration,
+					duration: duration
+				}}
+				out:rotate|local={{
+					delay: 500 * index,
+					duration: duration
+				}}
+				class={`col-start-1 row-start-1 text-5xl w-16 h-16 rounded border-2 transition-colors uppercase font-bold flex items-center justify-center ${stateStyles}`}
 			>
 				{character}
 			</div>
-		{/key}
+		{/each}
 	</div>
-{/key}
+{/each}
+<!-- </div> -->

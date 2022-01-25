@@ -66,11 +66,9 @@
 
 <div class="flex-1 my-2 items-center flex">
 	<div class="grid grid-cols-5 grid-rows-6 gap-1">
-		{#each $gameState.grid as row}
-			{#each row as tile, i}
-				<div class="grid">
-					<Tile character={tile.value} state={tile.state} index={i} />
-				</div>
+		{#each $gameState.grid as row, i (`row-${i}`)}
+			{#each row as tile, j (`tile-${i}-${j}`)}
+				<Tile character={tile.value} state={tile.state} index={j} />
 			{/each}
 		{/each}
 	</div>

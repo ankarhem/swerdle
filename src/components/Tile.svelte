@@ -50,11 +50,11 @@
 	}
 </script>
 
-{#key state}
+{#key `${state}-${index}`}
 	<div
 		class="col-start-1 row-start-1"
 		in:rotate={{ index: index, duration: 200, isIn: true }}
-		out:rotate={{ index: index, duration: 200 }}
+		out:rotate|local={{ index: index, duration: 200 }}
 	>
 		{#key character.toLowerCase()}
 			<div

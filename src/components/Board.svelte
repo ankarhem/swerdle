@@ -1,29 +1,28 @@
 <script lang="ts">
+	import { gameState } from './store';
 	import Tile from './Tile.svelte';
-	import { TileState, TileType } from './types';
+	import { TileState } from './types';
 
 	const allowedCharacters = 'abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ';
-	const grid: TileType[][] = Array.from({ length: 6 }, () =>
-		Array.from({ length: 5 }, () => ({ value: '', state: TileState.Unknown }))
-	);
 
 	export let dailyWord: string;
-	let currentRow = 0;
+
 	let isDone = false;
 
-	$: currentGuess = grid[currentRow].map((tile) => tile.value).join('');
+	$: currentRow = $gameState.currentRow;
+	$: currentGuess = $gameState.grid[currentRow].map((tile) => tile.value).join('');
 
 	const handleDeleteKey = () => {
 		if (currentGuess.length === 0) return;
 
-		grid[currentRow][currentGuess.length - 1].value = '';
+		$gameState.grid[currentRow][currentGuess.length - 1].value = '';
 	};
 
 	const handleAddKey = (key: string) => {
 		if (!allowedCharacters.includes(key)) return;
 		if (currentGuess.length === 5) return;
 
-		grid[currentRow][currentGuess.length].value = key;
+		$gameState.grid[currentRow][currentGuess.length].value = key;
 	};
 
 	const handleSubmit = () => {
@@ -36,7 +35,7 @@
 					: dailyWord.includes(char)
 					? TileState.WrongPlace
 					: TileState.Incorrect;
-			grid[currentRow][index].state = newState;
+			$gameState.grid[currentRow][index].state = newState;
 		});
 
 		if (currentRow === 5 || currentGuess === dailyWord) {
@@ -44,7 +43,7 @@
 		}
 
 		if (currentRow === 5) return;
-		currentRow++;
+		$gameState.currentRow++;
 	};
 
 	const handleKeyDown = (event) => {
@@ -67,7 +66,7 @@
 
 <div class="flex-1 my-2 items-center flex">
 	<div class="grid grid-cols-5 grid-rows-6 gap-1">
-		{#each grid as row}
+		{#each $gameState.grid as row}
 			{#each row as tile, i}
 				<div class="grid">
 					<Tile character={tile.value} state={tile.state} index={i} />

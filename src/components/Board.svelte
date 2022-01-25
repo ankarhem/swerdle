@@ -7,6 +7,9 @@
 
 	export let dailyWord: string;
 
+	let shake = false;
+	const triggerShake = () => (shake = !shake);
+
 	let isDone = false;
 
 	$: currentRow = $gameState.currentRow;
@@ -25,8 +28,15 @@
 		$gameState.grid[currentRow][currentGuess.length].value = key;
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (currentGuess.length !== 5) return;
+
+		const response = await fetch(`/api/words/${currentGuess}.json`);
+		if (!response.ok) {
+			triggerShake();
+			console.log(await response.json());
+			return;
+		}
 
 		currentGuess.split('').forEach((char, index) => {
 			const newState =

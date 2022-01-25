@@ -36,5 +36,9 @@
 	"type": "module",
 	"peerDependencies": {
 		"tailwindcss": "^3.0.15"
+	},
+	"dependencies": {
+		"@types/better-sqlite3": "^7.4.2",
+		"better-sqlite3": "^7.5.0"
 	}
 }

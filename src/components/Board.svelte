@@ -2,15 +2,20 @@
 	import { TileState } from '$lib/types';
 	import { gameState } from './store';
 	import Tile from './Tile.svelte';
+	import { shake } from './transitions';
 
 	const allowedCharacters = 'abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ';
 
 	export let dailyWord: string;
 
-	let shake = false;
-	const triggerShake = () => (shake = !shake);
-
 	let isDone = false;
+
+	// hackyhack
+	let tries = 1;
+	const triggerShake = () => {
+		tries++;
+		console.log(tries);
+	};
 
 	$: currentRow = $gameState.currentRow;
 	$: currentGuess = $gameState.grid[currentRow].map((tile) => tile.value).join('');
@@ -75,10 +80,14 @@
 <svelte:window on:keydown={handleKeyDown} />
 
 <div class="flex-1 my-2 items-center flex">
-	<div class="grid grid-cols-5 grid-rows-6 gap-1">
+	<div class="flex flex-col gap-1">
 		{#each $gameState.grid as row, i (`row-${i}`)}
-			{#each row as tile, j (`tile-${i}-${j}`)}
-				<Tile character={tile.value} state={tile.state} index={j} />
+			{#each [tries] as t (t)}
+				<div class="flex gap-1" in:shake={{ duration: currentRow === i ? 500 : 0 }}>
+					{#each row as tile, j (`tile-${i}-${j}`)}
+						<Tile character={tile.value} state={tile.state} index={j} />
+					{/each}
+				</div>
 			{/each}
 		{/each}
 	</div>

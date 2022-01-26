@@ -4,6 +4,7 @@
 	import { fade } from 'svelte/transition';
 	import { gameState } from '../store';
 	import { ROTATE_DURATION } from '../transitions';
+
 	export let key: string;
 	export let specialKey: boolean = false;
 

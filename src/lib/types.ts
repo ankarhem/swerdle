@@ -9,3 +9,9 @@ export enum TileState {
 	WrongPlace = 'WRONG_PLACE',
 	Incorrect = 'INCORRECT'
 }
+
+export enum GameState {
+	InProgress = 'IN_PROGRESS',
+	Won = 'WON',
+	Lost = 'LOST'
+}

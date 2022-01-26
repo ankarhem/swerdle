@@ -10,6 +10,8 @@
 <Notifications item={Component}>
 	<div class="w-full h-screen flex flex-col items-center">
 		<Header />
-		<slot />
+		<main>
+			<slot />
+		</main>
 	</div>
 </Notifications>

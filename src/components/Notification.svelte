@@ -12,11 +12,11 @@
 	const getNotificationStyles = (type?: 'success' | 'warning' | 'error') => {
 		switch (type) {
 			case 'success':
-				return 'bg-green-300 text-green-600 border-green-600';
+				return 'bg-green-300 text-neutral-600 border-green-600';
 			case 'error':
-				return 'bg-red-300 text-red-600 border-red-600';
+				return 'bg-red-300 text-neutral-600 border-red-600';
 			case 'warning':
-				return 'bg-yellow-300 text-yellow-600 border-yellow-600';
+				return 'bg-yellow-300 text-neutral-600 border-yellow-600';
 			default:
 				return 'bg-neutral-300 text-neutral-600 border-neutral-600';
 		}

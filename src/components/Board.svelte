@@ -30,7 +30,7 @@
 		if (!allowedCharacters.includes(key)) return;
 		if (currentGuess.length === 5) return;
 
-		$gameState.grid[currentRow][currentGuess.length].value = key;
+		$gameState.grid[currentRow][currentGuess.length].value = key.toLowerCase();
 	};
 
 	const handleSubmit = async () => {

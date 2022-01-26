@@ -83,7 +83,7 @@
 	<div class="flex flex-col gap-1">
 		{#each $gameState.grid as row, i (`row-${i}`)}
 			{#each [tries] as t (t)}
-				<div class="flex gap-1" in:shake={{ duration: currentRow === i ? 500 : 0 }}>
+				<div class="flex gap-1" in:shake|local={{ duration: currentRow === i ? 600 : 0 }}>
 					{#each row as tile, j (`tile-${i}-${j}`)}
 						<Tile character={tile.value} state={tile.state} index={j} />
 					{/each}

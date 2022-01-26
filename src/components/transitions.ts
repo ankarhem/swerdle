@@ -40,7 +40,7 @@ export function shake(node: Element, params: ShakeParams): TransitionConfig {
 
 	return {
 		delay: 0,
-		duration: params.duration || 600,
+		duration: typeof params.duration === 'undefined' ? 600 : params.duration,
 		easing: quadOut,
 		css: (t, u) => `transform: ${existingTransform} translateX(${2 * Math.sin(u * 13)}px)`
 	};

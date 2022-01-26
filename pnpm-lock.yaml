@@ -18,6 +18,7 @@ specifiers:
   svelte: ^3.44.0
   svelte-check: ^2.2.6
   svelte-hero-icons: ^4.0.3
+  svelte-notifications: ^0.9.93
   svelte-preprocess: ^4.9.4
   tailwindcss: ^3.0.15
   tslib: ^2.3.1
@@ -26,6 +27,7 @@ specifiers:
 dependencies:
   '@types/better-sqlite3': 7.4.2
   better-sqlite3: 7.5.0
+  svelte-notifications: 0.9.93
 
 devDependencies:
   '@sveltejs/adapter-auto': 1.0.0-next.15
@@ -2067,6 +2069,10 @@ packages:
     dependencies:
       svelte: 3.46.2
     dev: true
+
+  /svelte-notifications/0.9.93:
+    resolution: {integrity: sha512-xtgBT653R8j3KzKhrRdnZKhdcgi22RbN27dvn4GSzf6Mw5ESOFj+j8tNe1FDaeA/dU+r2r2ZsG2rvCqLDsZ4ow==}
+    dev: false
 
   /svelte-preprocess/4.10.2_2a4c99a86e01910091fb98182b640d22:
     resolution: {integrity: sha512-aPpkCreSo8EL/y8kJSa1trhiX0oyAtTjlNNM7BNjRAsMJ8Yy2LtqHt0zyd4pQPXt+D4PzbO3qTjjio3kwOxDlA==}

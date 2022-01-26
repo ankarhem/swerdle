@@ -1,8 +1,11 @@
 <script lang="ts">
 	import { TileState } from '$lib/types';
+	import { getNotificationsContext } from 'svelte-notifications';
 	import { gameState } from './store';
 	import Tile from './Tile.svelte';
 	import { shake } from './transitions';
+
+	const { addNotification } = getNotificationsContext();
 
 	const allowedCharacters = 'abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ';
 
@@ -38,8 +41,14 @@
 
 		const response = await fetch(`/api/words/${currentGuess}.json`);
 		if (!response.ok) {
+			const data = await response.json();
+			addNotification({
+				type: response.status === 404 ? 'warning' : 'error',
+				text: data.message,
+				position: 'top-center',
+				removeAfter: 1000
+			});
 			triggerShake();
-			console.log(await response.json());
 			return;
 		}
 

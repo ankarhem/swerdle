@@ -42,12 +42,12 @@
 		const response = await fetch(`/api/words/${currentGuess}.json`);
 		if (!response.ok) {
 			const data = await response.json();
-			addNotification({
-				type: response.status === 404 ? 'warning' : 'error',
-				text: data.message,
-				position: 'top-center',
-				removeAfter: 1000
-			});
+			// addNotification({
+			// 	type: response.status === 404 ? 'warning' : 'error',
+			// 	text: data.message,
+			// 	position: 'top-center',
+			// 	removeAfter: 1000
+			// });
 			triggerShake();
 			return;
 		}

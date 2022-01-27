@@ -88,11 +88,11 @@
 
 <svelte:window on:keydown={handleKeyDown} />
 
-<div class="flex-1 my-2 items-center flex">
-	<div class="flex flex-col gap-1">
+<div class="flex-1 my-2 items-center flex text-5xl">
+	<div class="flex flex-col gap-[0.08em]">
 		{#each $gameState.grid as row, i (`row-${i}`)}
 			{#each [tries] as t (t)}
-				<div class="flex gap-1" in:shake|local={{ duration: currentRow === i ? 600 : 0 }}>
+				<div class="flex gap-[0.08em]" in:shake|local={{ duration: currentRow === i ? 600 : 0 }}>
 					{#each row as tile, j (`tile-${i}-${j}`)}
 						<Tile character={tile.value} state={tile.state} index={j} />
 					{/each}

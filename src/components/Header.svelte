@@ -1,14 +1,9 @@
 <script lang="ts">
-	import { GameState } from '$lib/types';
 	import { ChartBar, Icon, QuestionMarkCircle } from 'svelte-hero-icons';
-	import { createEmptyGrid, gameState } from './store';
+	import { createInitialGameState, gameState } from './store';
 
 	const handleClick = () => {
-		const newState = {
-			grid: createEmptyGrid(),
-			currentRow: 0,
-			state: GameState.Playing
-		};
+		const newState = createInitialGameState();
 		$gameState = newState;
 	};
 

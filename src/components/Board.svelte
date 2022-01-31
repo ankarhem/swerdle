@@ -4,7 +4,7 @@
 	import { getNotificationsContext } from 'svelte-notifications';
 	import CountdownTimer from './CountdownTimer.svelte';
 	import Modal from './Modal.svelte';
-	import { gameState } from './store';
+	import { createInitialGameState, gameState } from './store';
 	import Tile from './Tile.svelte';
 	import { shake } from './transitions';
 
@@ -128,6 +128,14 @@
 	};
 
 	$: modalOpen = $gameState.state !== GameState.Playing;
+
+	$: {
+		const isYesterday = $gameState.initiatedAt < Date.now() - 86400000;
+		if (isYesterday) {
+			const newState = createInitialGameState();
+			$gameState = newState;
+		}
+	}
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />

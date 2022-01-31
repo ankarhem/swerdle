@@ -7,7 +7,7 @@
 		type?: 'success' | 'error' | 'warning';
 		text: string;
 	};
-	export let onRemove = null;
+	// export let onRemove = null;
 
 	const getNotificationStyles = (type?: 'success' | 'warning' | 'error') => {
 		switch (type) {
@@ -21,8 +21,6 @@
 				return 'bg-neutral-300 text-neutral-600 border-neutral-600';
 		}
 	};
-
-	console.log(notification);
 </script>
 
 <div

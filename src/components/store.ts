@@ -5,25 +5,31 @@ import { writable } from 'svelte/store';
 
 const STORAGE_KEY = 'gameState';
 
-export const createEmptyGrid = (): TileType[][] => {
+const createEmptyGrid = (): TileType[][] => {
 	return Array.from({ length: 6 }, () =>
 		Array.from({ length: 5 }, () => ({ value: '', state: TileState.Unknown }))
 	);
 };
 
-export const emptyGrid: TileType[][] = createEmptyGrid();
+export const createInitialGameState = (): GameData => {
+	const gameState: GameData = {
+		grid: createEmptyGrid(),
+		currentRow: 0,
+		state: GameState.Playing,
+		initiatedAt: Date.now()
+	};
+
+	return gameState;
+};
 
 interface GameData {
 	grid: TileType[][];
 	currentRow: number;
 	state: GameState;
+	initiatedAt: number;
 }
 
-const initialState: GameData = {
-	grid: emptyGrid,
-	currentRow: 0,
-	state: GameState.Playing
-};
+const initialState: GameData = createInitialGameState();
 
 const storedState = browser ? localStorage.getItem(STORAGE_KEY) : null;
 const parsedState = storedState ? JSON.parse(storedState) : initialState;

@@ -11,7 +11,7 @@ export enum TileState {
 }
 
 export enum GameState {
-	InProgress = 'IN_PROGRESS',
+	Playing = 'PLAYING',
 	Won = 'WON',
 	Lost = 'LOST'
 }

@@ -31,6 +31,7 @@ export function expand(node: Element, _params: Record<never, never>): Transition
 }
 
 interface ShakeParams {
+	delay?: number;
 	duration?: number;
 }
 
@@ -39,7 +40,7 @@ export function shake(node: Element, params: ShakeParams): TransitionConfig {
 	const existingTransform = getComputedStyle(node).transform.replace('none', '');
 
 	return {
-		delay: 0,
+		delay: params.delay || 0,
 		duration: typeof params.duration === 'undefined' ? 600 : params.duration,
 		easing: quadOut,
 		css: (t, u) => `transform: ${existingTransform} translateX(${2 * Math.sin(u * 13)}px)`

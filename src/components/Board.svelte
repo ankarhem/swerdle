@@ -1,6 +1,9 @@
 <script lang="ts">
-	import { TileState } from '$lib/types';
+	import { GameState, TileState } from '$lib/types';
+	import { Icon, Share } from 'svelte-hero-icons';
 	import { getNotificationsContext } from 'svelte-notifications';
+	import CountdownTimer from './CountdownTimer.svelte';
+	import Modal from './Modal.svelte';
 	import { gameState } from './store';
 	import Tile from './Tile.svelte';
 	import { shake } from './transitions';
@@ -11,13 +14,10 @@
 
 	export let dailyWord: string;
 
-	let isDone = false;
-
 	// hackyhack
 	let tries = 1;
 	const triggerShake = () => {
 		tries++;
-		console.log(tries);
 	};
 
 	$: currentRow = $gameState.currentRow;
@@ -42,12 +42,21 @@
 		const response = await fetch(`/api/words/${currentGuess}.json`);
 		if (!response.ok) {
 			const data = await response.json();
-			// addNotification({
-			// 	type: response.status === 404 ? 'warning' : 'error',
-			// 	text: data.message,
-			// 	position: 'top-center',
-			// 	removeAfter: 1000
-			// });
+			if (response.status === 404) {
+				addNotification({
+					type: 'warning',
+					text: 'Finns ej i ordlistan',
+					position: 'top-center',
+					removeAfter: 1000
+				});
+			} else {
+				addNotification({
+					type: 'error',
+					text: data.message,
+					position: 'top-center',
+					removeAfter: 1000
+				});
+			}
 			triggerShake();
 			return;
 		}
@@ -63,7 +72,8 @@
 		});
 
 		if (currentRow === 5 || currentGuess === dailyWord) {
-			isDone = true;
+			$gameState.state = currentGuess === dailyWord ? GameState.Won : GameState.Lost;
+			return;
 		}
 
 		if (currentRow === 5) return;
@@ -71,7 +81,7 @@
 	};
 
 	const handleKeyDown = (event) => {
-		if (isDone) return;
+		if ($gameState.state !== GameState.Playing) return;
 
 		switch (event.key) {
 			case 'Backspace':
@@ -84,10 +94,57 @@
 				handleAddKey(event.key);
 		}
 	};
+
+	const handleShare = () => {
+		const title = `Swerdle ${$gameState.currentRow + 1}/6`;
+		const body = $gameState.grid
+			.map((row) => {
+				return row
+					.map((tile) => {
+						switch (tile.state) {
+							case TileState.Correct:
+								return '🟩';
+							case TileState.Incorrect:
+								return '⬜️';
+							case TileState.WrongPlace:
+								return '🟨';
+						}
+					})
+					.join('');
+			})
+			.filter((row) => row.length > 0)
+			.join('\n');
+
+		const message = title + '\n\n' + body;
+		navigator.clipboard.writeText(message);
+
+		// TODO: Fix z-index issue with modal overlay
+		addNotification({
+			type: 'success',
+			text: 'Kopierat till urklipp!',
+			position: 'top-center',
+			removeAfter: 1000
+		});
+	};
+
+	$: modalOpen = $gameState.state !== GameState.Playing;
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
 
+<Modal open={modalOpen} title={GameState.Won ? 'Du vann! 🥳' : 'Du förlorade! 🙈'}>
+	<div class="flex flex-col items-center gap-4">
+		<div>Nästa ord kommer om:</div>
+		<CountdownTimer />
+		<button
+			on:click={handleShare}
+			class="uppercase font-bold bg-green-200 flex gap-4 py-2 px-4 rounded text-green-600 hover:bg-green-300/80"
+		>
+			<Icon src={Share} size="1.5rem" />
+			<span>Dela</span>
+		</button>
+	</div>
+</Modal>
 <div class="flex-1 my-2 items-center flex text-5xl">
 	<div class="flex flex-col gap-[0.08em]">
 		{#each $gameState.grid as row, i (`row-${i}`)}

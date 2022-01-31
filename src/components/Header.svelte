@@ -1,18 +1,22 @@
 <script lang="ts">
+	import { GameState } from '$lib/types';
 	import { ChartBar, Icon, QuestionMarkCircle } from 'svelte-hero-icons';
 	import { createEmptyGrid, gameState } from './store';
 
 	const handleClick = () => {
 		const newState = {
 			grid: createEmptyGrid(),
-			currentRow: 0
+			currentRow: 0,
+			state: GameState.Playing
 		};
 		$gameState = newState;
 	};
+
+	const inDev = process.env.NODE_ENV === 'development';
 </script>
 
 <div
-	class="self-stretch px-3 py-0.5 bg-primary-100 border-b-[3px] border-b-primary-500 flex justify-between items-center"
+	class="self-stretch px-3 py-0.5 bg-gray-200 border-b-[3px] border-b-primary-500 flex justify-between items-center"
 >
 	<a href="/hjalp" class="text-primary-500">
 		<Icon src={QuestionMarkCircle} size="1.5rem" />
@@ -27,9 +31,11 @@
 			</a>
 		</h1>
 		<div class="text-xs block">Wordle på svenska</div>
-		<button on:click={handleClick}> Reset </button>
+		{#if inDev}
+			<button on:click={handleClick}> Reset </button>
+		{/if}
 	</div>
-	<a href="/statistik" class="text-primary-500">
+	<a href="/statistik" class="text-primary-500 opacity-0 pointer-events-none">
 		<Icon src={ChartBar} size="1.5rem" />
 	</a>
 </div>

@@ -6,13 +6,14 @@
 	import Modal from './Modal.svelte';
 	import { createInitialGameState, gameState } from './store';
 	import Tile from './Tile.svelte';
-	import { shake } from './transitions';
+	import { ROTATE_DURATION, shake } from './transitions';
 
 	const { addNotification } = getNotificationsContext();
 
 	const allowedCharacters = 'abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ';
 
 	export let dailyWord: string;
+	export let id: number;
 
 	// hackyhack
 	let tries = 1;
@@ -96,7 +97,7 @@
 	};
 
 	const handleShare = () => {
-		const title = `Swerdle ${$gameState.currentRow + 1}/6`;
+		const title = `Swerdle #${id} - ${$gameState.currentRow + 1}/6`;
 		const body = $gameState.grid
 			.map((row) => {
 				return row
@@ -136,11 +137,17 @@
 			$gameState = newState;
 		}
 	}
+
+	const transitionDelay = ROTATE_DURATION * 5 + 200;
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
 
-<Modal open={modalOpen} title={GameState.Won ? 'Du vann! 🥳' : 'Du förlorade! 🙈'}>
+<Modal
+	open={modalOpen}
+	title={GameState.Won ? 'Du vann! 🥳' : 'Du förlorade! 🙈'}
+	{transitionDelay}
+>
 	<div class="flex flex-col items-center gap-4">
 		<div>Nästa ord kommer om:</div>
 		<CountdownTimer />

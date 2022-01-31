@@ -8,6 +8,7 @@
 		if (res.ok) {
 			return {
 				props: {
+					id: data.id,
 					dailyWord: data.word
 				}
 			};
@@ -25,7 +26,8 @@
 	import Keyboard from '../components/Keyboard/Keyboard.svelte';
 
 	export let dailyWord;
+	export let id;
 </script>
 
-<Board {dailyWord} />
+<Board {dailyWord} {id} />
 <Keyboard />

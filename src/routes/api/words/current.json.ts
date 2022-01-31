@@ -3,7 +3,7 @@ import db from '$lib/database';
 /** @type {import('@sveltejs/kit').RequestHandler} */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function get() {
-	const firstDay = '2022-01-24T21:32:46.418Z';
+	const firstDay = '2022-01-24T23:59:59.999Z';
 	const date = new Date();
 
 	// get diff in days
@@ -15,6 +15,7 @@ export async function get() {
 	return {
 		status: 200,
 		body: {
+			id: row.id,
 			word: row.word
 		}
 	};

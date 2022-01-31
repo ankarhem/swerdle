@@ -145,7 +145,7 @@
 
 <Modal
 	open={modalOpen}
-	title={GameState.Won ? 'Du vann! 🥳' : 'Du förlorade! 🙈'}
+	title={$gameState.state === GameState.Won ? 'Du vann! 🥳' : 'Du förlorade! 🙈'}
 	{transitionDelay}
 >
 	<div class="flex flex-col items-center gap-4">

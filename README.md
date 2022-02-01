@@ -13,7 +13,7 @@ version: '3.7'
 services:
   swerdle:
     container_name: swerdle
-    image: idealpink/swerdle:latest
+    image: ghcr.io/ankarhem/swerdle:latest
     volumes:
       - "/path/to/persist/db:/usr/src/app/db"
 ```
@@ -21,5 +21,5 @@ services:
 ### Docker run
 
 ```
-docker run -d --name swerdle -v "/path/to/persist/db:/usr/src/app/db" idealpink/swerdle:latest
+docker run -d --name swerdle -v "/path/to/persist/db:/usr/src/app/db" ghcr.io/ankarhem/swerdle:latest
 ```

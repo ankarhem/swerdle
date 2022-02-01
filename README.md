@@ -12,9 +12,10 @@ Går att spela [här](https://swerdle.ankarhem.dev).
 version: '3.7'
 services:
   swerdle:
+    container_name: swerdle
     image: idealpink/swerdle:latest
     volumes:
-      - /path/to/persist/db:/usr/src/app/db
+      - "/path/to/persist/db:/usr/src/app/db"
 ```
 
 ### Docker run

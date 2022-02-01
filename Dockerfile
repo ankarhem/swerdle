@@ -1,14 +1,13 @@
 ### Build Step
 # pull the Node.js Docker image
-FROM node:16.2 as builder
-
+FROM node:fermium-alpine3.15 as builder
 # Install pnpm
-RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-# Change working directory
+RUN npm install -g pnpm
+
 WORKDIR /usr/src/app
-# Files required by pnpm install
+
+# Install build dependencies
 COPY .npmrc package.json pnpm-lock.yaml ./
-# Install dependencies
 RUN pnpm install --frozen-lockfile
 
 # Bundle app source
@@ -16,7 +15,22 @@ COPY . .
 # build the application
 RUN pnpm build
 
+
+FROM node:fermium-alpine3.15
+# Install pnpm
+RUN npm install -g pnpm
+
+WORKDIR /usr/src/app
+
+# Install production dependencies
+COPY --from=builder /usr/src/app/.npmrc /usr/src/app/package.json /usr/src/app/pnpm-lock.yaml ./
+RUN pnpm install --prod --frozen-lockfile
+
+COPY --from=builder /usr/src/app/build ./build
+
+RUN mkdir -p /usr/src/app/db
+
 EXPOSE 3000
 
 # the command that starts our app
-CMD ["node", "build/index.js"]
+CMD ["node", "/usr/src/app/build/index.js"]

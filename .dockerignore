@@ -1,4 +1,10 @@
-node_modules/
-build/
-.svelte-kit/
-.git/
+*
+
+!src/
+!static/
+!package.json
+!pnpm-lock.yaml
+!.npmrc
+!*.config.cjs
+!*.config.js
+!tsconfig.json

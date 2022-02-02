@@ -7,7 +7,7 @@
 	let bottomRow = 'zxcvbnm';
 </script>
 
-<div class="max-w-lg w-full pb-safe mb-2 px-0 xs:px-1">
+<div class="max-w-lg w-full pb-safe mb-2 px-1">
 	<div class="grid grid-cols-11 gap-1">
 		{#each firstRow as char}
 			<Key key={char} />

@@ -6,7 +6,6 @@ module.exports = {
 	theme: {
 		extend: {},
 		screens: {
-			xs: '320px',
 			...defaultTheme.screens,
 			standalone: { raw: 'all and (display-mode: standalone)' }
 		},

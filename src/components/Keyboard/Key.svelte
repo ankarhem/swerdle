@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { getStateStyles } from '$lib/getStateStyles';
 	import { TileState } from '$lib/types';
-	import { fade } from 'svelte/transition';
 	import { gameState } from '../store';
 	import { ROTATE_DURATION } from '../transitions';
 
@@ -9,7 +8,7 @@
 	export let specialKey: boolean = false;
 
 	const handleClick: svelte.JSX.MouseEventHandler<HTMLButtonElement> = (event) => {
-		console.log(key);
+		event.preventDefault();
 		if (!key || typeof window === 'undefined') return;
 
 		window.dispatchEvent(
@@ -35,25 +34,20 @@
 	$: stateStyle = getStateStyles(state);
 
 	// wait for all keys to flip before fading in the new keys
-	const animationDelay = ROTATE_DURATION * 5;
+	$: animationDelay = state === TileState.Unknown ? 0 : ROTATE_DURATION * 5;
 </script>
 
 <div class={`grid ${specialKey === false ? '' : 'col-span-2'}`}>
-	{#key state}
-		<button
-			transition:fade|local={{
-				delay: state === TileState.Unknown ? 0 : animationDelay,
-				duration: 150
-			}}
-			class={`${stateStyle} ${
-				// to override the lesser border in stateStyles used on the tiles
-				state === TileState.Unknown ? 'border-primary-500' : ''
-			} col-start-1 row-start-1 border text-lg flex items-center justify-center py-3 sm:py-4 rounded uppercase font-bold`}
-			on:click={handleClick}
-		>
-			<slot>
-				{key}
-			</slot>
-		</button>
-	{/key}
+	<button
+		style="transition-delay: {animationDelay}ms"
+		class={`${stateStyle} ${
+			// to override the lesser border in stateStyles used on the tiles
+			state === TileState.Unknown ? 'border-primary-500' : ''
+		} col-start-1 row-start-1 border text-lg flex transition-colors items-center justify-center py-3 sm:py-4 rounded uppercase font-bold`}
+		on:click={handleClick}
+	>
+		<slot>
+			{key}
+		</slot>
+	</button>
 </div>

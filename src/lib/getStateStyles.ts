@@ -9,7 +9,7 @@ export const getStateStyles = (state: TileState): string => {
 		case TileState.Incorrect:
 			return 'bg-neutral-300 text-neutral-600 border-neutral-600 dark:bg-neutral-700/80 dark:text-neutral-400/80 dark:border-neutral-400/80';
 		case TileState.Unknown:
-			return 'bg-primary-50 text-primary-500 border-primary-300 dark:bg-primary-800/[0.7] dark:text-primary-400/80 dark:border-primary-400/80';
+			return 'bg-primary-50 text-primary-500 border-primary-300 dark:bg-primary-800/[0.7] dark:text-primary-400 dark:border-primary-500/80';
 		default:
 			return '';
 	}

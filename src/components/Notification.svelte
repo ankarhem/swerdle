@@ -28,7 +28,7 @@
 		y: -35,
 		easing: cubicInOut
 	}}
-	class={`uppercase font-bold translate-y-14 flex h-9 p-4 border-2 items-center rounded ${getNotificationStyles(
+	class={`uppercase font-bold translate-y-32 whitespace-nowrap flex h-9 p-4 border-2 items-center rounded ${getNotificationStyles(
 		notification.type
 	)}`}
 >

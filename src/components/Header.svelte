@@ -11,12 +11,14 @@
 </script>
 
 <header
-	class="self-stretch px-3 py-0.5 bg-gray-200 border-b-[3px] border-b-primary-500 flex justify-between items-center pt-safe"
+	class="self-stretch px-3 py-0.5 bg-gray-200 border-b-primary-500 dark:bg-neutral-700 dark:border-primary-500 border-b-[3px] flex justify-between items-center pt-safe"
 >
-	<a href="/hjalp" class="text-primary-500">
+	<a href="/hjalp" class="text-primary-500 dark:text-primary-400">
 		<Icon src={QuestionMarkCircle} size="24px" />
 	</a>
-	<div class="flex items-center flex-col uppercase text-primary-500 py-1 relative">
+	<div
+		class="flex items-center flex-col uppercase text-primary-500 dark:text-primary-400 py-1 relative"
+	>
 		<h1 class="text-5xl mx-auto">
 			<a href="/" class="flex font-bold leading-10">
 				<span class="text-blue-400">S</span>

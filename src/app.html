@@ -6,7 +6,8 @@
 		<link rel="icon" href="%svelte.assets%/favicon.png" />
 		<link rel="manifest" href="manifest.json" />
 
-		<meta name="theme-color" content="#e5e7eb" />
+		<meta name="theme-color" content="#e5e7eb" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#404040" media="(prefers-color-scheme: dark)" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/ios/180.png" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -18,11 +19,11 @@
 		%svelte.head%
 	</head>
 	<body
-		class="bg-gray-200 flex flex-col justify-items-stretch min-h-screen min-h-screen-safe h-full standalone:h-screen"
+		class="flex flex-col justify-items-stretch min-h-screen min-h-screen-safe h-full standalone:h-screen"
 	>
 		<div
 			id="svelte"
-			class="bg-gray-50 flex flex-col min-h-screen min-h-screen-safe lg:min-h-screen h-full standalone:h-screen"
+			class="bg-gray-50 dark:bg-primary-800/[0.95] flex flex-col min-h-screen min-h-screen-safe lg:min-h-screen h-full standalone:h-screen"
 		>
 			%svelte.body%
 		</div>

@@ -160,7 +160,9 @@
 		</button>
 	</div>
 </Modal>
-<div class="text-[11vw] sm:text-5xl flex flex-1 items-center py-2 standalone:text-5xl">
+<div
+	class="text-[11vw] sm:text-5xl flex flex-1 items-center py-2 standalone:text-5xl lg:flex-grow-0 lg:py-6"
+>
 	<div class="grid gap-[0.08em] grid-cols-1">
 		{#each $gameState.grid as row, i (`row-${i}`)}
 			{#each [tries] as t (t)}

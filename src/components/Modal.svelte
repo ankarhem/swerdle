@@ -26,7 +26,7 @@
 						dispatch('close');
 					}}
 				>
-					<Icon src={X} size="1.5rem" />
+					<Icon src={X} size="24px" />
 				</button>
 			</div>
 			<div class="content p-8">

@@ -6,10 +6,9 @@ module.exports = {
 	theme: {
 		extend: {},
 		screens: {
-			iphoneSE: { max: '320px' },
-			iphone: { max: '375px' },
-			ipnonePlus: { max: '414px' },
-			...defaultTheme.screens
+			xs: '320px',
+			...defaultTheme.screens,
+			standalone: { raw: 'all and (display-mode: standalone)' }
 		},
 		colors: {
 			...colors,

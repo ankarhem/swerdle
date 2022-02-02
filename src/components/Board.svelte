@@ -155,12 +155,14 @@
 			on:click={handleShare}
 			class="uppercase font-bold bg-green-200 flex gap-4 py-2 px-4 rounded text-green-600 hover:bg-green-300/80"
 		>
-			<Icon src={Share} size="1.5rem" />
+			<Icon src={Share} size="24px" />
 			<span>Dela</span>
 		</button>
 	</div>
 </Modal>
-<div class="iphoneSE:text-4xl iphone:text-[44px] text-5xl my-auto">
+<div
+	class="text-[40px] xs:text-[42px] sm:text-5xl flex flex-1 items-center py-2 standalone:text-5xl"
+>
 	<div class="grid gap-[0.08em] grid-cols-1">
 		{#each $gameState.grid as row, i (`row-${i}`)}
 			{#each [tries] as t (t)}

@@ -48,7 +48,7 @@
 			class={`${stateStyle} ${
 				// to override the lesser border in stateStyles used on the tiles
 				state === TileState.Unknown ? 'border-primary-500' : ''
-			} col-start-1 row-start-1 border text-lg flex items-center justify-center py-4 rounded uppercase font-bold`}
+			} col-start-1 row-start-1 border text-lg flex items-center justify-center py-3 sm:py-4 rounded uppercase font-bold`}
 			on:click={handleClick}
 		>
 			<slot>

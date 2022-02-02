@@ -7,7 +7,7 @@
 	let bottomRow = 'zxcvbnm';
 </script>
 
-<div class="max-w-lg w-full p-2 pb-safe">
+<div class="max-w-lg w-full pb-safe mb-2 px-0 xs:px-1">
 	<div class="grid grid-cols-11 gap-1">
 		{#each firstRow as char}
 			<Key key={char} />
@@ -20,7 +20,7 @@
 			<Key key={char} />
 		{/each}
 		<Key specialKey key="Backspace">
-			<Icon src={Backspace} size="1.5rem" />
+			<Icon src={Backspace} size="24px" />
 		</Key>
 	</div>
 </div>

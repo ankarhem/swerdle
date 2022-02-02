@@ -10,7 +10,7 @@
 	const inDev = process.env.NODE_ENV === 'development';
 </script>
 
-<div
+<header
 	class="self-stretch px-3 py-0.5 bg-gray-200 border-b-[3px] border-b-primary-500 flex justify-between items-center"
 >
 	<a href="/hjalp" class="text-primary-500">
@@ -33,4 +33,4 @@
 	<a href="/statistik" class="text-primary-500 opacity-0 pointer-events-none">
 		<Icon src={ChartBar} size="1.5rem" />
 	</a>
-</div>
+</header>

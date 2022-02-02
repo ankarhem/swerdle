@@ -7,7 +7,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 		%svelte.head%
 	</head>
-	<body class="h-screen pt-safe pb-safe bg-gray-200">
-		<div id="svelte" class="h-screen-safe bg-gray-50">%svelte.body%</div>
+	<body class="bg-gray-200">
+		<div id="svelte" class="w-full min-h-screen flex flex-col items-center bg-gray-50">
+			%svelte.body%
+		</div>
 	</body>
 </html>

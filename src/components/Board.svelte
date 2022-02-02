@@ -160,11 +160,14 @@
 		</button>
 	</div>
 </Modal>
-<div class="flex-1 my-2 items-center flex text-5xl">
-	<div class="flex flex-col gap-[0.08em]">
+<div class="flex-1 my-2 items-center flex text-5xl mb-safe">
+	<div class="grid gap-[0.08em] grid-cols-1">
 		{#each $gameState.grid as row, i (`row-${i}`)}
 			{#each [tries] as t (t)}
-				<div class="flex gap-[0.08em]" in:shake|local={{ duration: currentRow === i ? 600 : 0 }}>
+				<div
+					class="grid grid-cols-5 gap-[0.08em]"
+					in:shake|local={{ duration: currentRow === i ? 600 : 0 }}
+				>
 					{#each row as tile, j (`tile-${i}-${j}`)}
 						<Tile character={tile.value} state={tile.state} index={j} />
 					{/each}

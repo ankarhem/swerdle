@@ -8,10 +8,10 @@
 </script>
 
 <Notifications item={Component}>
-	<div class="w-full h-screen flex flex-col items-center">
-		<Header />
-		<main class="w-full flex flex-col items-center">
-			<slot />
-		</main>
-	</div>
+	<!-- <div class=""> -->
+	<Header />
+	<main class="w-full flex flex-col items-center flex-1">
+		<slot />
+	</main>
+	<!-- </div> -->
 </Notifications>

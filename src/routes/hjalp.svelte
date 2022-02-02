@@ -5,7 +5,7 @@
 </script>
 
 <article
-	class="max-w-md bg-primary-100 border-primary-500 text-primary-500 p-5 m-5 rounded border-[3px]"
+	class="max-w-md bg-primary-100 border-primary-500 text-primary-500 p-5 m-5 rounded border-[3px] dark:bg-neutral-700 dark:border-primary-500 dark:text-primary-400"
 >
 	<h1 class="text-xl font-bold uppercase leading text-center mb-4">Hur fungerar det?</h1>
 

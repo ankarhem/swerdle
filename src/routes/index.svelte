@@ -29,5 +29,5 @@
 	export let id;
 </script>
 
-<Board {dailyWord} {id} />
-<Keyboard />
+<Board {id} />
+<Keyboard {dailyWord} />

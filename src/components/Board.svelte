@@ -10,91 +10,9 @@
 
 	const { addNotification } = getNotificationsContext();
 
-	const allowedCharacters = 'abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ';
-
-	export let dailyWord: string;
 	export let id: number;
 
-	// hackyhack
-	let tries = 1;
-	const triggerShake = () => {
-		tries++;
-	};
-
 	$: currentRow = $gameState.currentRow;
-	$: currentGuess = $gameState.grid[currentRow].map((tile) => tile.value).join('');
-
-	const handleDeleteKey = () => {
-		if (currentGuess.length === 0) return;
-
-		$gameState.grid[currentRow][currentGuess.length - 1].value = '';
-	};
-
-	const handleAddKey = (key: string) => {
-		if (!allowedCharacters.includes(key)) return;
-		if (currentGuess.length === 5) return;
-
-		$gameState.grid[currentRow][currentGuess.length].value = key.toLowerCase();
-	};
-
-	const handleSubmit = async () => {
-		if (currentGuess.length !== 5) return;
-
-		const response = await fetch(`/api/words/${currentGuess}.json`);
-		if (!response.ok) {
-			const data = await response.json();
-			if (response.status === 404) {
-				addNotification({
-					type: 'warning',
-					text: 'Finns ej i ordlistan',
-					position: 'top-center',
-					removeAfter: 1000
-				});
-			} else {
-				addNotification({
-					type: 'error',
-					text: data.message,
-					position: 'top-center',
-					removeAfter: 1000
-				});
-			}
-			triggerShake();
-			return;
-		}
-
-		currentGuess.split('').forEach((char, index) => {
-			const newState =
-				char === dailyWord[index]
-					? TileState.Correct
-					: dailyWord.includes(char)
-					? TileState.WrongPlace
-					: TileState.Incorrect;
-			$gameState.grid[currentRow][index].state = newState;
-		});
-
-		if (currentRow === 5 || currentGuess === dailyWord) {
-			$gameState.state = currentGuess === dailyWord ? GameState.Won : GameState.Lost;
-			return;
-		}
-
-		if (currentRow === 5) return;
-		$gameState.currentRow++;
-	};
-
-	const handleKeyDown = (event) => {
-		if ($gameState.state !== GameState.Playing) return;
-
-		switch (event.key) {
-			case 'Backspace':
-				handleDeleteKey();
-				break;
-			case 'Enter':
-				handleSubmit();
-				break;
-			default:
-				handleAddKey(event.key);
-		}
-	};
 
 	const handleShare = () => {
 		const title = `Swerdle #${id} - ${$gameState.currentRow + 1}/6`;
@@ -141,8 +59,6 @@
 	const transitionDelay = ROTATE_DURATION * 5 + 200;
 </script>
 
-<svelte:window on:keydown={handleKeyDown} />
-
 <Modal
 	open={modalOpen}
 	title={$gameState.state === GameState.Won ? 'Du vann! 🥳' : 'Du förlorade! 🙈'}
@@ -165,16 +81,25 @@
 >
 	<div class="grid gap-[0.08em] grid-cols-1">
 		{#each $gameState.grid as row, i (`row-${i}`)}
-			{#each [tries] as t (t)}
+			{#if $gameState.invalidWord && i === currentRow}
 				<div
 					class="grid grid-cols-5 gap-[0.08em]"
-					in:shake|local={{ duration: currentRow === i ? 600 : 0 }}
+					in:shake
+					on:introend={() => {
+						$gameState.invalidWord = false;
+					}}
 				>
 					{#each row as tile, j (`tile-${i}-${j}`)}
 						<Tile character={tile.value} state={tile.state} index={j} />
 					{/each}
 				</div>
-			{/each}
+			{:else}
+				<div class="grid grid-cols-5 gap-[0.08em]">
+					{#each row as tile, j (`tile-${i}-${j}`)}
+						<Tile character={tile.value} state={tile.state} index={j} />
+					{/each}
+				</div>
+			{/if}
 		{/each}
 	</div>
 </div>

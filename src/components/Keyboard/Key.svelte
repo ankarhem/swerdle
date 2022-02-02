@@ -1,21 +1,19 @@
 <script lang="ts">
 	import { getStateStyles } from '$lib/getStateStyles';
 	import { TileState } from '$lib/types';
+	import { createEventDispatcher } from 'svelte';
 	import { gameState } from '../store';
 	import { ROTATE_DURATION } from '../transitions';
 
 	export let key: string;
 	export let specialKey: boolean = false;
 
+	const dispatch = createEventDispatcher();
+
 	const handleClick: svelte.JSX.MouseEventHandler<HTMLButtonElement> = (event) => {
 		event.preventDefault();
-		if (!key || typeof window === 'undefined') return;
 
-		window.dispatchEvent(
-			new KeyboardEvent('keydown', {
-				key: key
-			})
-		);
+		dispatch('click', key);
 	};
 
 	$: states = new Set(
@@ -44,7 +42,7 @@
 			// to override the lesser border in stateStyles used on the tiles
 			state === TileState.Unknown ? 'border-primary-500' : ''
 		} col-start-1 row-start-1 border text-lg flex transition-colors items-center justify-center py-3 sm:py-4 rounded uppercase font-bold`}
-		on:click={handleClick}
+		on:mousedown={handleClick}
 	>
 		<slot>
 			{key}

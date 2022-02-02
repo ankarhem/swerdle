@@ -16,7 +16,8 @@ export const createInitialGameState = (): GameData => {
 		grid: createEmptyGrid(),
 		currentRow: 0,
 		state: GameState.Playing,
-		initiatedAt: Date.now()
+		initiatedAt: Date.now(),
+		invalidWord: false
 	};
 
 	return gameState;
@@ -27,6 +28,7 @@ interface GameData {
 	currentRow: number;
 	state: GameState;
 	initiatedAt: number;
+	invalidWord: boolean;
 }
 
 const initialState: GameData = createInitialGameState();

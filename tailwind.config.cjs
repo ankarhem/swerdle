@@ -9,5 +9,5 @@ module.exports = {
 			primary: colors.stone
 		}
 	},
-	plugins: []
+	plugins: [require('tailwindcss-safe-area')]
 };

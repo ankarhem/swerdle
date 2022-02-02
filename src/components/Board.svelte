@@ -160,7 +160,7 @@
 		</button>
 	</div>
 </Modal>
-<div class="flex-1 my-2 items-center flex text-5xl mb-safe">
+<div class="iphoneSE:text-4xl iphone:text-[44px] text-5xl my-auto">
 	<div class="grid gap-[0.08em] grid-cols-1">
 		{#each $gameState.grid as row, i (`row-${i}`)}
 			{#each [tries] as t (t)}

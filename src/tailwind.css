@@ -11,3 +11,8 @@
 * {
 	touch-action: manipulation;
 }
+
+html {
+	height: -webkit-fill-available;
+	-webkit-text-size-adjust: 100%;
+}

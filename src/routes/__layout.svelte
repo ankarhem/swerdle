@@ -10,7 +10,7 @@
 <Notifications item={Component}>
 	<!-- <div class=""> -->
 	<Header />
-	<main class="w-full flex flex-col items-center flex-1">
+	<main class="w-full flex flex-col items-center flex-1 justify-between">
 		<slot />
 	</main>
 	<!-- </div> -->

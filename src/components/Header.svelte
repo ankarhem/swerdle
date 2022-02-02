@@ -11,7 +11,7 @@
 </script>
 
 <header
-	class="self-stretch px-3 py-0.5 bg-gray-200 border-b-[3px] border-b-primary-500 flex justify-between items-center"
+	class="self-stretch px-3 py-0.5 bg-gray-200 border-b-[3px] border-b-primary-500 flex justify-between items-center pt-safe"
 >
 	<a href="/hjalp" class="text-primary-500">
 		<Icon src={QuestionMarkCircle} size="1.5rem" />
@@ -27,7 +27,7 @@
 		</h1>
 		<div class="text-xs block">Wordle på svenska</div>
 		{#if inDev}
-			<button on:click={handleClick}> Reset </button>
+			<button on:click={handleClick} class="hidden sm:block"> Reset </button>
 		{/if}
 	</div>
 	<a href="/statistik" class="text-primary-500 opacity-0 pointer-events-none">

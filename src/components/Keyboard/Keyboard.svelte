@@ -7,7 +7,7 @@
 	let bottomRow = 'zxcvbnm';
 </script>
 
-<div class="max-w-md w-full p-2">
+<div class="max-w-lg w-full p-2 pb-safe">
 	<div class="grid grid-cols-11 gap-1">
 		{#each firstRow as char}
 			<Key key={char} />
@@ -15,7 +15,7 @@
 		{#each middleRow as char}
 			<Key key={char} />
 		{/each}
-		<Key specialKey key="Enter">enter</Key>
+		<Key specialKey key="Enter">⏎</Key>
 		{#each bottomRow as char}
 			<Key key={char} />
 		{/each}

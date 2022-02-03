@@ -75,7 +75,6 @@
 					removeAfter: 1000
 				});
 			}
-			// triggerShake();
 			return;
 		}
 
@@ -89,7 +88,7 @@
 					: TileState.Incorrect;
 
 			// To prevent confusion with mutiple tiles with the same value
-			if (newState !== TileState.Incorrect) {
+			if (newState === TileState.Correct) {
 				dailyWordAsArray[index] = '';
 			}
 			$gameState.grid[currentRow][index].state = newState;

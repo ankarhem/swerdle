@@ -20,7 +20,7 @@
 			<div class="flex justify-between items-center head dark:bg-neutral-700 py-2 px-8">
 				<h3 class="text-2xl font-extrabold">{title}</h3>
 				<button
-					class="p-2 bg-primary-800/80 hover:bg-primary-800/90 rounded-full ml-4"
+					class="p-2 bg-gray-200 hover:bg-gray-300 dark:bg-primary-800/80 dark:hover:bg-primary-800/90 rounded-full ml-4"
 					on:click={() => {
 						open = false;
 						dispatch('close');

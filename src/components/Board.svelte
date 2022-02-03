@@ -69,7 +69,7 @@
 		<CountdownTimer />
 		<button
 			on:click={handleShare}
-			class="uppercase font-bold bg-green-200 flex gap-4 py-2 px-4 rounded text-green-600 hover:bg-green-300/80"
+			class="uppercase font-bold bg-green-200 flex gap-4 py-2 px-4 rounded text-green-600 hover:bg-green-300/80 dark:bg-green-600/80 dark:text-green-300 dark:hover:bg-green-600/70"
 		>
 			<Icon src={Share} size="24px" />
 			<span>Dela</span>

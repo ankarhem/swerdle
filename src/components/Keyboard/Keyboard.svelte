@@ -79,13 +79,19 @@
 			return;
 		}
 
+		let dailyWordAsArray = dailyWord.split('');
 		currentGuess.split('').forEach((char, index) => {
 			const newState =
-				char === dailyWord[index]
+				char === dailyWordAsArray[index]
 					? TileState.Correct
-					: dailyWord.includes(char)
+					: dailyWordAsArray.includes(char)
 					? TileState.WrongPlace
 					: TileState.Incorrect;
+
+			// To prevent confusion with mutiple tiles with the same value
+			if (newState !== TileState.Incorrect) {
+				dailyWordAsArray[index] = '';
+			}
 			$gameState.grid[currentRow][index].state = newState;
 		});
 

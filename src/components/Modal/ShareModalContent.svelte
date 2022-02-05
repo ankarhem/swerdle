@@ -75,7 +75,7 @@
 <div class="flex flex-col items-center gap-4">
 	<figure class="flex flex-col items-center gap-4">
 		<figcaption class="font-bold text-xl max-w-[20ch] text-center">
-			Lösnings distribution för Swerdle #{wordId}
+			Lösningsdistribution för Swerdle #{wordId}
 		</figcaption>
 		<div class="flex h-32 rounded gap-4 p-4 justify-center items-center">
 			{#await fetchDistribution()}

@@ -1,30 +1,17 @@
-import sqlite from 'better-sqlite3';
-import wordlist from './ordlista_5.json';
+import sqlite from 'better-sqlite3-helper';
 
-const db = new sqlite('./db/db.sqlite3', { verbose: console.log });
-
-const schema = `
-CREATE TABLE IF NOT EXISTS words(
-    id INTEGER NOT NULL PRIMARY KEY,
-    word TEXT NOT NULL,
-    UNIQUE(word)
-);
-
-CREATE TABLE IF NOT EXISTS invalidGuesses(
-  id INTEGER NOT NULL PRIMARY KEY,
-  guess TEXT NOT NULL,
-  amount INTEGER DEFAULT 1,
-  UNIQUE(guess)
-);
-`;
-
-db.exec(schema);
-
-// TODO: Use some migrations system instead
-const populateWords = wordlist
-	.map((word) => `INSERT OR IGNORE INTO words (word) VALUES ('${word}');`)
-	.join('\n');
-
-db.exec(populateWords);
+const db = sqlite({
+	path: './db/sqlite3.db', // this is the default
+	readonly: false, // read only
+	fileMustExist: false, // throw error if database not exists
+	WAL: true, // automatically enable 'PRAGMA journal_mode = WAL'
+	migrate: {
+		// disable completely by setting `migrate: false`
+		force: false, // set to 'last' to automatically reapply the last migration-file
+		table: 'migration', // name of the database table that is used to keep track
+		migrationsPath: './migrations' // path of the migration-files
+	},
+	// verbose: console.log
+});
 
 export default db;

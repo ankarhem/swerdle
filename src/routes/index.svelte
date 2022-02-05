@@ -5,18 +5,10 @@
 		const res: Response = await fetch(url);
 		const data = await res.json();
 
-		if (res.ok) {
-			return {
-				props: {
-					id: data.id,
-					dailyWord: data.word
-				}
-			};
-		}
-
 		return {
-			status: res.status,
-			error: data.message
+			props: {
+				id: data.id
+			}
 		};
 	}
 </script>
@@ -25,9 +17,8 @@
 	import Board from '../components/Board.svelte';
 	import Keyboard from '../components/Keyboard/Keyboard.svelte';
 
-	export let dailyWord;
 	export let id;
 </script>
 
 <Board {id} />
-<Keyboard {dailyWord} />
+<Keyboard />

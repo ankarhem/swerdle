@@ -5,8 +5,6 @@
 	import { gameState } from '../store';
 	import Key from './Key.svelte';
 
-	export let dailyWord: string;
-
 	const { addNotification } = getNotificationsContext();
 
 	const allowedCharacters = 'abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ';
@@ -56,9 +54,13 @@
 	const handleSubmit = async () => {
 		if (currentGuess.length !== 5) return;
 
-		const response = await fetch(`/api/words/${currentGuess}.json`);
+		const response = await fetch(`/api/words/validate.json`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ word: currentGuess, rowIndex: $gameState.currentRow })
+		});
+		const data = await response.json();
 		if (!response.ok) {
-			const data = await response.json();
 			if (response.status === 404) {
 				addNotification({
 					type: 'warning',
@@ -78,28 +80,22 @@
 			return;
 		}
 
-		let dailyWordAsArray = dailyWord.split('');
-		currentGuess.split('').forEach((char, index) => {
-			const newState =
-				char === dailyWordAsArray[index]
-					? TileState.Correct
-					: dailyWordAsArray.includes(char)
-					? TileState.WrongPlace
-					: TileState.Incorrect;
+		const newRow = $gameState.grid[currentRow].map((tile, index) => ({
+			...tile,
+			state: data.tileStates[index]
+		}));
+		$gameState.grid[currentRow] = newRow;
 
-			// To prevent confusion with mutiple tiles with the same value
-			if (newState === TileState.Correct) {
-				dailyWordAsArray[index] = '';
-			}
-			$gameState.grid[currentRow][index].state = newState;
-		});
-
-		if (currentRow === 5 || currentGuess === dailyWord) {
-			$gameState.state = currentGuess === dailyWord ? GameState.Won : GameState.Lost;
+		const nonCorrectTiles = newRow.filter((tile) => tile.state !== TileState.Correct);
+		if (nonCorrectTiles.length === 0) {
+			$gameState.state = GameState.Won;
 			return;
 		}
 
-		if (currentRow === 5) return;
+		if (currentRow === 5) {
+			$gameState.state = GameState.Lost;
+			return;
+		}
 		$gameState.currentRow++;
 	};
 </script>

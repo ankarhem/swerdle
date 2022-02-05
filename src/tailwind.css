@@ -11,3 +11,8 @@
 * {
 	touch-action: manipulation;
 }
+
+/* Need this to prevent modal from covering notifications */
+#svelte div.notifications {
+	z-index: 42069;
+}

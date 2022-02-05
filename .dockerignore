@@ -1,6 +1,7 @@
 *
 
 !src/
+!migrations/
 !static/
 !package.json
 !pnpm-lock.yaml

@@ -26,6 +26,7 @@ WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/.npmrc /usr/src/app/package.json /usr/src/app/pnpm-lock.yaml ./
 RUN pnpm install --prod --frozen-lockfile
 
+COPY migrations/ /usr/src/app/migrations
 COPY --from=builder /usr/src/app/build ./build
 
 RUN mkdir -p /usr/src/app/db

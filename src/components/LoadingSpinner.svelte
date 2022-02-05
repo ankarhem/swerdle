@@ -1,4 +1,8 @@
-<div class="lds-ring">
+<script lang="ts">
+	import { fade } from 'svelte/transition';
+</script>
+
+<div class="lds-ring" in:fade={{ delay: 200 }}>
 	<div />
 	<div />
 	<div />

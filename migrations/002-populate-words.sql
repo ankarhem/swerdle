@@ -1,4 +1,4 @@
--- UP
+-- Up
 INSERT OR IGNORE INTO tbl_words (word, approved) VALUES ('hänge', 1);
 INSERT OR IGNORE INTO tbl_words (word, approved) VALUES ('issjö', 1);
 INSERT OR IGNORE INTO tbl_words (word, approved) VALUES ('märkt', 1);
@@ -7464,5 +7464,5 @@ INSERT OR IGNORE INTO tbl_words (word, approved) VALUES ('täkts', 1);
 INSERT OR IGNORE INTO tbl_words (word, approved) VALUES ('klåda', 1);
 INSERT OR IGNORE INTO tbl_words (word, approved) VALUES ('nudda', 1);
 INSERT OR IGNORE INTO tbl_words (word, approved) VALUES ('ordat', 1);
--- DOWN
+-- Down
 DELETE FROM tbl_words;

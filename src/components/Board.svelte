@@ -2,23 +2,15 @@
 	import { GameState } from '$lib/types';
 	import Modal from './Modal/Modal.svelte';
 	import ShareModalContent from './Modal/ShareModalContent.svelte';
-	import { createInitialGameState, gameState } from './store';
+	import { gameState } from './store';
 	import Tile from './Tile.svelte';
 	import { ROTATE_DURATION, shake } from './transitions';
 
-	export let id: number;
+	export let wordId: number;
 
 	$: currentRow = $gameState.currentRow;
 
 	$: modalOpen = $gameState.state !== GameState.Playing;
-
-	$: {
-		const isYesterday = $gameState.initiatedAt < Date.now() - 86400000;
-		if (isYesterday) {
-			const newState = createInitialGameState();
-			$gameState = newState;
-		}
-	}
 
 	const transitionDelay = ROTATE_DURATION * 5 + 200;
 </script>
@@ -28,7 +20,7 @@
 	title={$gameState.state === GameState.Won ? 'Du vann! 🥳' : 'Du förlorade! 🙈'}
 	{transitionDelay}
 >
-	<ShareModalContent wordId={id} />
+	<ShareModalContent {wordId} />
 </Modal>
 <div
 	class="text-[11vw] sm:text-5xl flex flex-1 items-center py-2 standalone:text-5xl lg:flex-grow-0 lg:py-6"

@@ -28,7 +28,7 @@ export const getCurrentWordRow = (): WordRow => {
 };
 
 export const validateWord = (guess: string, correctWord: string): TileState[] => {
-	const states: TileState[] = [];
+	const states: TileState[] = Array.from({ length: correctWord.length }, () => TileState.Incorrect);
 
 	if (guess.length !== correctWord.length) {
 		throw new Error(
@@ -38,18 +38,18 @@ export const validateWord = (guess: string, correctWord: string): TileState[] =>
 
 	const copiedCorrectWord = correctWord.split('');
 	for (let i = 0; i < correctWord.length; i++) {
-		const newState =
-			guess[i] === copiedCorrectWord[i]
-				? TileState.Correct
-				: copiedCorrectWord.includes(guess[i])
-				? TileState.WrongPlace
-				: TileState.Incorrect;
-
-		if (newState === TileState.WrongPlace) {
-			copiedCorrectWord[copiedCorrectWord.indexOf(guess[i])] = '_';
+		if (guess[i] === copiedCorrectWord[i]) {
+			copiedCorrectWord[i] = '_';
+			states[i] = TileState.Correct;
 		}
+	}
 
-		states.push(newState);
+	for (let i = 0; i < correctWord.length; i++) {
+		const index = copiedCorrectWord.indexOf(guess[i]);
+		if (index !== -1 && copiedCorrectWord[i] !== '_') {
+			copiedCorrectWord[index] = '_';
+			states[i] = TileState.WrongPlace;
+		}
 	}
 
 	return states;

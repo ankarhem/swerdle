@@ -45,9 +45,10 @@ export const validateWord = (guess: string, correctWord: string): TileState[] =>
 	}
 
 	for (let i = 0; i < correctWord.length; i++) {
-		const index = copiedCorrectWord.indexOf(guess[i]);
-		if (index !== -1 && copiedCorrectWord[i] !== '_') {
-			copiedCorrectWord[index] = '_';
+		const guessChar = guess[i];
+		const indexInCorrectWord = copiedCorrectWord.indexOf(guessChar);
+		if (indexInCorrectWord !== -1) {
+			copiedCorrectWord[indexInCorrectWord] = '_';
 			states[i] = TileState.WrongPlace;
 		}
 	}

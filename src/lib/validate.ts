@@ -28,27 +28,28 @@ export const getCurrentWordRow = (): WordRow => {
 };
 
 export const validateWord = (guess: string, correctWord: string): TileState[] => {
-	const states: TileState[] = Array.from({ length: correctWord.length }, () => TileState.Incorrect);
-
 	if (guess.length !== correctWord.length) {
 		throw new Error(
 			`String length mismatch: guess: ${guess.length}, correctWord: ${correctWord.length}`
 		);
 	}
 
-	const copiedCorrectWord = correctWord.split('');
-	for (let i = 0; i < correctWord.length; i++) {
-		if (guess[i] === copiedCorrectWord[i]) {
-			copiedCorrectWord[i] = '_';
-			states[i] = TileState.Correct;
-		}
-	}
+	const states: TileState[] = correctWord
+		.split('')
+		.map((_, i) => (guess[i] === correctWord[i] ? TileState.Correct : TileState.Incorrect));
 
 	for (let i = 0; i < correctWord.length; i++) {
 		const guessChar = guess[i];
-		const indexInCorrectWord = copiedCorrectWord.indexOf(guessChar);
-		if (indexInCorrectWord !== -1) {
-			copiedCorrectWord[indexInCorrectWord] = '_';
+		const indexOfCharInWord = correctWord.indexOf(guessChar);
+
+		if (
+			// exists in word
+			indexOfCharInWord !== -1 &&
+			// is not used as correct character
+			states[i] === TileState.Incorrect &&
+			// is not use as wrong place character
+			states[indexOfCharInWord] === TileState.Incorrect
+		) {
 			states[i] = TileState.WrongPlace;
 		}
 	}

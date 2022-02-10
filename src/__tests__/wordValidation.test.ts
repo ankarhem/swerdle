@@ -59,3 +59,7 @@ it('Consecutive wrong place characters wont block each other', () => {
 		TileState.Incorrect
 	]);
 });
+
+it('should fail', () => {
+	expect(true).toEqual(false);
+});

@@ -3,7 +3,8 @@ on:
   - pull_request
 
 jobs:
-  cache-and-install:
+  run-tests:
+    name: 'Run Jest tests'
     runs-on: ubuntu-latest
 
     steps:

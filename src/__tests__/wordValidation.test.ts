@@ -49,7 +49,7 @@ it('Only sets the correct tile if character exists as both WrongPlace and Correc
 	]);
 });
 
-it('Multiple wrong place characters wont block each other', () => {
+it('Consecutive wrong place characters wont block each other', () => {
 	const states = validateWord('stick', 'dåtid');
 	expect(states).toEqual([
 		TileState.Incorrect,

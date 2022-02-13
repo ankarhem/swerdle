@@ -2,9 +2,7 @@ import { TileState } from '$lib/types';
 import { validateWord } from '$lib/validate';
 
 it('Sets `Correct` on all letters if all are correct', () => {
-	const guess = 'stick';
-	const correctWord = 'stick';
-	const states = validateWord(guess, correctWord);
+	const states = validateWord('stick', 'stick');
 	expect(states).toEqual([
 		TileState.Correct,
 		TileState.Correct,
@@ -15,13 +13,22 @@ it('Sets `Correct` on all letters if all are correct', () => {
 });
 
 it('Sets `Incorrect` on all letters if none are correct', () => {
-	const guess = 'abxyz';
-	const correctWord = 'stick';
-	const states = validateWord(guess, correctWord);
+	const states = validateWord('abxyz', 'stick');
 	expect(states).toEqual([
 		TileState.Incorrect,
 		TileState.Incorrect,
 		TileState.Incorrect,
+		TileState.Incorrect,
+		TileState.Incorrect
+	]);
+});
+
+it('Sets `WrongPlace` if character exists in word but is not at the correct spot', () => {
+	const states = validateWord('yrsel', 'syran');
+	expect(states).toEqual([
+		TileState.WrongPlace,
+		TileState.WrongPlace,
+		TileState.WrongPlace,
 		TileState.Incorrect,
 		TileState.Incorrect
 	]);
@@ -57,5 +64,14 @@ it('Consecutive wrong place characters wont block each other', () => {
 		TileState.WrongPlace,
 		TileState.Incorrect,
 		TileState.Incorrect
+	]);
+
+	const otherStates = validateWord('kväds', 'vävds');
+	expect(otherStates).toEqual([
+		TileState.Incorrect,
+		TileState.WrongPlace,
+		TileState.WrongPlace,
+		TileState.Correct,
+		TileState.Correct
 	]);
 });

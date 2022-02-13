@@ -34,25 +34,45 @@ export const validateWord = (guess: string, correctWord: string): TileState[] =>
 		);
 	}
 
-	const states: TileState[] = correctWord
-		.split('')
-		.map((_, i) => (guess[i] === correctWord[i] ? TileState.Correct : TileState.Incorrect));
+	/**
+	 * Dictionary with
+	 * - key: character
+	 * - value: array of indices character appears in guess
+	 */
+	const guessIndicesMap: Record<string, number[]> = [...new Set(correctWord.split(''))].reduce(
+		(acc, char) => {
+			acc[char] = guess.split('').reduce((indices, char2, i) => {
+				if (char === char2) {
+					indices.push(i);
+				}
+				return indices;
+			}, []);
+			return acc;
+		},
+		{}
+	);
 
-	for (let i = 0; i < correctWord.length; i++) {
-		const guessChar = guess[i];
-		const indexOfCharInWord = correctWord.indexOf(guessChar);
+	const states: TileState[] = Array.from({ length: correctWord.length }, () => TileState.Incorrect);
 
-		if (
-			// exists in word
-			indexOfCharInWord !== -1 &&
-			// is not used as correct character
-			states[i] === TileState.Incorrect &&
-			// is not use as wrong place character
-			states[indexOfCharInWord] === TileState.Incorrect
-		) {
-			states[i] = TileState.WrongPlace;
-		}
-	}
+	Object.entries(guessIndicesMap).forEach(([char, indices]) => {
+		let usages = correctWord.split('').filter((c) => c === char).length;
+		indices.forEach((index) => {
+			if (char === correctWord[index]) {
+				states[index] = TileState.Correct;
+				usages--;
+			}
+		});
+
+		indices.forEach((index) => {
+			// only interested in wrong place characters
+			if (char === correctWord[index]) return;
+
+			if (correctWord.includes(char) && usages > 0) {
+				states[index] = TileState.WrongPlace;
+				usages--;
+			}
+		});
+	});
 
 	return states;
 };

@@ -32,6 +32,6 @@
 		.padStart(2, '0');
 </script>
 
-<div class="text-3xl font-bold">
-	{`${hoursLeft}:${minutesLeft}:${secondsLeft}`}
+<div class="text-xl font-bold">
+	{`${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`}
 </div>

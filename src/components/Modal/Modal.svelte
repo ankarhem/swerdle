@@ -29,7 +29,7 @@
 					<Icon src={X} size="24px" />
 				</button>
 			</div>
-			<div class="content p-8">
+			<div class="content p-8 max-h-[80vh] overflow-auto">
 				<slot />
 			</div>
 		</div>

@@ -11,22 +11,35 @@ interface Distribution {
 export async function get() {
 	const currentWord = getCurrentWordRow();
 
-	const distributionArray = db.query<Distribution>(
+	const wonGamesPerRowIndex = db.query<Distribution>(
 		'SELECT rowIndex, count(created_at) AS count FROM tbl_guesses WHERE guessId = wordId AND wordId = ? GROUP BY rowIndex',
 		currentWord.id
 	);
+	const totalWon = wonGamesPerRowIndex.reduce((acc, curr) => {
+		return acc + curr.count;
+	}, 0);
 
-	const fullDistributionArray = Array.from({ length: 6 }, (_, i) => {
+	const startedGames = db.query<Distribution>(
+		'SELECT created_at FROM tbl_guesses WHERE rowIndex = 0 AND wordId = ?',
+		currentWord.id
+	);
+
+	const distribution = Array.from({ length: 6 }, (_, i) => {
 		return { rowIndex: i, count: 0 };
 	});
-	distributionArray.forEach((row) => {
-		fullDistributionArray[row.rowIndex] = row;
+	wonGamesPerRowIndex.forEach((row) => {
+		distribution[row.rowIndex] = row;
 	});
 
 	return {
 		status: 200,
 		body: {
-			distribution: fullDistributionArray
+			word: currentWord.word,
+			distribution: distribution,
+			total: {
+				won: totalWon,
+				played: startedGames.length
+			}
 		}
 	};
 }

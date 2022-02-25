@@ -82,7 +82,7 @@
 			Dagens ord
 			<a
 				class="border border-primary-500 dark:border-primary-400 uppercase rounded p-1 mx-1 bg-transparent hover:bg-primary-300 dark:hover:bg-primary-700 text-primary-500 dark:text-primary-400 flex-inline items-center w-min"
-				href={`https://svenska.se/saol/?q=${data.word}`}
+				href={`https://svenska.se/saol/?sok=${data.word}`}
 				target="_blank"
 				rel="noopener noreferrer"
 			>

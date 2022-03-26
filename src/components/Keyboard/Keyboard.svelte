@@ -25,6 +25,7 @@
 
 	const handleKey = (key: string) => {
 		if ($gameState.state !== GameState.Playing) return;
+		if ($gameState.loading) return;
 
 		switch (key) {
 			case 'Backspace':
@@ -54,12 +55,14 @@
 	const handleSubmit = async () => {
 		if (currentGuess.length !== 5) return;
 
+		$gameState.loading = true;
 		const response = await fetch(`/api/words/validate.json`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ word: currentGuess, rowIndex: $gameState.currentRow })
+			body: JSON.stringify({ word: currentGuess, rowIndex: currentRow })
 		});
 		const data = await response.json();
+		$gameState.loading = false;
 		if (!response.ok) {
 			if (response.status === 404) {
 				addNotification({
@@ -109,11 +112,11 @@
 		{#each middleRow as char}
 			<Key key={char} on:click={handleClick} />
 		{/each}
-		<Key specialKey key="Enter" on:click={handleClick}>⏎</Key>
+		<Key specialKey key="Enter" on:click={handleClick} disabled={$gameState.loading}>⏎</Key>
 		{#each bottomRow as char}
 			<Key key={char} on:click={handleClick} />
 		{/each}
-		<Key specialKey key="Backspace" on:click={handleClick}>
+		<Key specialKey key="Backspace" on:click={handleClick} disabled={$gameState.loading}>
 			<Icon src={Backspace} size="24px" />
 		</Key>
 	</div>

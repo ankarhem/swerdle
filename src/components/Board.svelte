@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { GameState } from '$lib/types';
+	import { fade } from 'svelte/transition';
+	import LoadingSpinner from './LoadingSpinner.svelte';
 	import Modal from './Modal/Modal.svelte';
 	import ShareModalContent from './Modal/ShareModalContent.svelte';
 	import { gameState } from './store';
@@ -23,8 +25,17 @@
 	<ShareModalContent {wordId} />
 </Modal>
 <div
-	class="text-[11vw] sm:text-5xl flex flex-1 items-center py-2 standalone:text-5xl lg:flex-grow-0 lg:py-6"
+	class="text-[11vw] sm:text-5xl flex flex-1 items-center my-2 standalone:text-5xl lg:flex-grow-0 lg:my-6 relative"
 >
+	{#if $gameState.loading}
+		<div
+			class="absolute w-full h-full bg-black/10 rounded dark:text-primary-400"
+			in:fade={{ delay: 300, duration: 150 }}
+			out:fade={{ duration: 150 }}
+		>
+			<LoadingSpinner />
+		</div>
+	{/if}
 	<div class="grid gap-[0.08em] grid-cols-1">
 		{#each $gameState.grid as row, i (`row-${i}`)}
 			{#if $gameState.invalidWord && i === currentRow}

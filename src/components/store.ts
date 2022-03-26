@@ -13,6 +13,7 @@ const createEmptyGrid = (): TileType[][] => {
 
 export const createInitialGameState = (wordId?: number): GameData => {
 	const gameState: GameData = {
+		loading: false,
 		grid: createEmptyGrid(),
 		currentRow: 0,
 		state: GameState.Playing,
@@ -24,6 +25,7 @@ export const createInitialGameState = (wordId?: number): GameData => {
 };
 
 interface GameData {
+	loading: boolean;
 	grid: TileType[][];
 	currentRow: number;
 	state: GameState;

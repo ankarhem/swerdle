@@ -7,6 +7,7 @@
 
 	export let key: string;
 	export let specialKey: boolean = false;
+	export let disabled: boolean = false;
 
 	const dispatch = createEventDispatcher();
 
@@ -37,11 +38,12 @@
 
 <div class={`grid ${specialKey === false ? '' : 'col-span-2'}`}>
 	<button
+		{disabled}
 		style="transition-delay: {animationDelay}ms"
 		class={`${stateStyle} ${
 			// to override the lesser border in stateStyles used on the tiles
 			state === TileState.Unknown ? 'border-primary-500' : ''
-		} col-start-1 row-start-1 border text-lg flex transition-colors items-center justify-center h-14 sm:h-16 rounded uppercase font-bold select-none`}
+		} col-start-1 row-start-1 border text-lg flex transition-colors items-center justify-center h-14 sm:h-16 rounded uppercase font-bold select-none disabled:cursor-not-allowed`}
 		on:click={handleClick}
 	>
 		<slot>

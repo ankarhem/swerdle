@@ -23,3 +23,7 @@ services:
 ```
 docker run -d --name swerdle -v "/path/to/persist/db:/usr/src/app/db" ghcr.io/ankarhem/swerdle:latest
 ```
+
+## Delta i utvecklingsarbetet
+
+Läs [\"Contributing guidelines\"](.CONTRIBUTING.md)

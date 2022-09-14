@@ -35,21 +35,6 @@
 			</div>
 		</li>
 		<li class="m-1">
-			Romerska siffror är <span class="font-bold text-md">exkluderade</span> från ordlistan
-			<div>
-				<div class="mx-6 my-4 flex flex-col gap-4">
-					<div class="flex wrong-guess items-center">
-						<div class="flex gap-[0.08em] animate-shake">
-							{#each 'xxxix' as char, index}
-								<Tile state={TileState.Unknown} {index} character={char} />
-							{/each}
-						</div>
-						<div class="ml-4">❌</div>
-					</div>
-				</div>
-			</div>
-		</li>
-		<li class="m-1">
 			Brickornas färger ger dig ledtrådar om vilket ord som söks
 			<div class="mx-6 flex flex-col my-4 gap-4">
 				<div class="flex gap-[0.08em] items-center">
